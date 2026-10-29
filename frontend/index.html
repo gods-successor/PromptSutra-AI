@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f1220">
+  <meta name="description" content="PromptSutra AI — Turn your ideas into powerful AI prompts.">
+  <title>PromptSutra AI — Think it. Describe it. Prompt it.</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <section id="auth-screen" class="auth-screen">
+    <div class="ambient glow-a"></div><div class="ambient glow-b"></div>
+    <div class="auth-layout">
+      <div class="auth-marketing">
+        <div class="brand brand-big"><span class="logo">✦</span> PromptSutra <span class="brand-ai">AI</span></div>
+        <div class="eyebrow">YOUR IDEAS DESERVE BETTER PROMPTS</div>
+        <h1>From a spark of an idea to a <span class="gradient-text">brilliant prompt.</span></h1>
+        <p>Just tell us what you're trying to do. Our AI asks the right questions, understands your context, and crafts a prompt built around your goal.</p>
+        <div class="marketing-steps"><div><b>01</b> Describe your idea</div><div><b>02</b> Answer smart questions</div><div><b>03</b> Get your perfect prompt</div></div>
+        <div class="marketing-caption">✦ Built with a free-tier-friendly tech stack</div>
+      </div>
+      <div class="login-card">
+        <div class="login-mini-icon">✦</div>
+        <h2>Welcome to PromptSutra</h2>
+        <p>Sign in to create, refine and save your AI prompts.</p>
+        <button type="button" class="btn btn-google" id="google-login"><span class="google-g">G</span> Continue with Google</button>
+        <div class="separator"><span>or continue with email</span></div>
+        <form id="email-form">
+          <label for="email-input">Email address</label>
+          <input type="email" id="email-input" placeholder="you@gmail.com" autocomplete="email" required maxlength="254">
+          <button class="btn primary full" id="email-submit" type="submit">Send verification code <span>→</span></button>
+        </form>
+        <form id="otp-form" hidden>
+          <label for="otp-input">6-digit verification code</label>
+          <input id="otp-input" type="text" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" placeholder="000000" required>
+          <button class="btn primary full" type="submit">Verify & sign in <span>→</span></button>
+          <button type="button" id="back-email" class="text-button">← Change email</button>
+        </form>
+        <p class="auth-note" id="auth-note"></p>
+        <div class="phone-note">📱 Phone OTP requires an SMS provider. Coming later.</div>
+        <div class="fine-print">By signing in you agree to keep your API keys private. No passwords required.</div>
+      </div>
+    </div>
+  </section>
+
+  <div id="workspace" class="workspace" hidden>
+    <div id="mobile-scrim" class="mobile-scrim" hidden></div>
+    <aside id="sidebar" class="sidebar">
+      <div class="side-top">
+        <div class="brand"><span class="logo">✦</span> PromptSutra <span class="brand-ai">AI</span></div>
+        <button class="icon-button mobile-close" id="close-sidebar" aria-label="Close sidebar">✕</button>
+      </div>
+      <button id="new-chat" class="new-chat"><span>＋</span> New prompt <span class="shortcut">⌘ N</span></button>
+      <div class="side-group"><div class="side-label">WORKSPACE</div>
+        <button id="nav-chat" class="nav-link active" type="button"><span>◈</span> AI Prompt Builder</button>
+        <button id="nav-library" class="nav-link" type="button"><span>▤</span> My Prompt Library</button>
+      </div>
+      <div class="side-group history-section"><div class="side-label history-header">RECENT CONVERSATIONS <button id="refresh-history" aria-label="Refresh conversations">↻</button></div>
+        <div id="history-list" class="history-list"><div class="hint-text">Your chats will appear here.</div></div>
+      </div>
+      <div class="sidebar-bottom"><div class="tier"><span class="tier-dot"></span> Free-tier friendly <small>Local starter</small></div>
+        <button class="profile-button" id="profile-button"><span id="avatar" class="avatar">U</span><span class="profile-info"><b id="profile-name">Creator</b><small id="profile-email">Signed in</small></span><span class="profile-menu-icon">⋯</span></button>
+        <button class="sign-out" id="sign-out">↪ Sign out</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar"><div class="top-left"><button id="open-sidebar" class="icon-button hamburger" aria-label="Open sidebar">☰</button><div class="breadcrumb">Workspace <span>/</span> <b id="page-name">AI Prompt Builder</b></div></div>
+        <div class="top-right"><span class="api-status" id="api-status">● Checking AI</span><button id="theme-toggle" class="icon-button" title="Toggle theme">☼</button></div>
+      </header>
+
+      <section id="chat-view" class="chat-view">
+        <div id="chat-scroll" class="chat-scroll"><div id="chat-content" class="chat-content">
+          <div id="welcome" class="welcome">
+            <div class="welcome-icon">✦</div><div class="welcome-kicker">YOUR PERSONAL PROMPT ARCHITECT</div>
+            <h2>What will we <span class="gradient-text">create today?</span></h2>
+            <p>Share an idea, even if it's half-formed. I'll ask thoughtful questions and build the right AI prompt for you.</p>
+            <div class="starter-grid">
+              <button class="starter-card" data-idea="I want to build a college management website with a modern design."><span class="starter-emoji">⌘</span><b>Build an app</b><small>Turn an idea into a development brief</small><span class="card-arrow">↗</span></button>
+              <button class="starter-card" data-idea="Help me create a photorealistic cinematic image prompt for an AI image generator."><span class="starter-emoji">◫</span><b>Create an image</b><small>Shape a detailed visual prompt</small><span class="card-arrow">↗</span></button>
+              <button class="starter-card" data-idea="I need a research prompt to deeply analyze a topic with credible sources."><span class="starter-emoji">◉</span><b>Deep research</b><small>Design a structured research task</small><span class="card-arrow">↗</span></button>
+              <button class="starter-card" data-idea="Help me write a professional LinkedIn post about a recent achievement."><span class="starter-emoji">✎</span><b>Write better</b><small>Create content with the right voice</small><span class="card-arrow">↗</span></button>
+            </div>
+          </div>
+          <div id="messages" class="messages" aria-live="polite"></div>
+        </div></div>
+        <div class="composer-area"><div id="chat-error" class="chat-error" hidden></div>
+          <div class="composer"><textarea id="chat-input" placeholder="Describe your idea or answer a question..." rows="2" maxlength="4000" aria-label="Your message"></textarea>
+            <div class="composer-actions"><div class="composer-options"><select id="category-select" aria-label="Prompt category"><option>General</option><option>Website Development</option><option>Software Development</option><option>Image Generation</option><option>Writing</option><option>Education</option><option>Research</option><option>Business</option></select><span class="word-hint" id="char-count">0 / 4000</span></div>
+              <div class="composer-buttons"><button class="btn secondary" id="generate-button" type="button" title="Generate from collected requirements">✦ <span>Generate Prompt</span></button><button id="send-button" class="send-button" title="Send" aria-label="Send message">↑</button></div>
+            </div>
+            <details class="prompt-settings"><summary>⚙ Prompt settings</summary><div class="settings-row">
+              <label>Detail <select id="detail-select"><option>Detailed</option><option>Short</option><option>Medium</option></select></label>
+              <label>Tone <select id="tone-select"><option>Professional</option><option>Creative</option><option>Casual</option><option>Technical</option></select></label>
+              <label>Language <select id="language-select"><option>English</option><option>Hindi</option><option>Hinglish</option></select></label>
+              <label>Target AI <select id="platform-select"><option>Any AI</option><option>ChatGPT</option><option>Claude</option><option>Gemini</option><option>Image AI</option></select></label>
+            </div></details>
+          </div>
+          <p class="composer-footer">PromptSutra can make mistakes. Review the final prompt before use. <span id="chat-ready"></span></p>
+        </div>
+      </section>
+
+      <section id="library-view" class="library-view" hidden><div class="library-inner"><div class="library-heading"><div><div class="welcome-kicker">YOUR CREATIONS</div><h2>Prompt Library</h2><p>All of your generated prompts, one place.</p></div><button class="btn primary" id="library-create">＋ Create a prompt</button></div><div class="library-tools"><input id="library-search" placeholder="Search your prompts..." type="search"><label><input type="checkbox" id="only-favorites"> Favorites only</label></div><div id="library-grid" class="library-grid"></div></div></section>
+    </main>
+  </div>
+
+  <div id="prompt-modal" class="modal-backdrop" hidden role="presentation"><section class="prompt-modal" role="dialog" aria-modal="true" aria-labelledby="prompt-modal-title">
+    <div class="modal-head"><div><div class="modal-kicker">✦ YOUR OPTIMIZED PROMPT</div><h2 id="prompt-modal-title">Your prompt is ready</h2><p id="prompt-version-label">Version 1 · Saved automatically</p></div><button class="icon-button" id="close-prompt" aria-label="Close prompt">✕</button></div>
+    <div class="modal-toolbar"><button id="copy-prompt" class="btn secondary">⧉ Copy</button><button id="download-prompt" class="btn secondary">↓ Download</button><button id="edit-prompt" class="btn secondary">✎ Edit</button><button id="favorite-prompt" class="btn secondary">☆ Favorite</button><button id="versions-prompt" class="btn secondary">↺ Versions</button></div>
+    <textarea id="prompt-content" class="prompt-content" readonly aria-label="Generated prompt text"></textarea>
+    <div id="versions-area" class="versions-area" hidden></div>
+    <form id="refine-form" class="refine-form"><label for="refine-input">Improve this prompt with AI</label><div class="refine-row"><input id="refine-input" placeholder="E.g. Add more detail about security..." maxlength="2000" required><button class="btn primary" type="submit">✦ Refine</button></div></form>
+  </section></div>
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>

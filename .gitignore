@@ -1,0 +1,25 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.db
+*.sqlite
+*.sqlite3
+firebase-service-account*.json
+# Environment files
+.env.*
+!.env.example
+
+# Virtual environments
+venv/
+
+# Node dependencies
+node_modules/
+
+# Python cache and test files
+.coverage
+htmlcov/
+
+# IDE settings
+.vscode/
